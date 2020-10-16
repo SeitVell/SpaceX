@@ -1,53 +1,74 @@
 import React from 'react';
+import RellaxWrapper from 'react-rellax-wrapper';
 
-import Falcon1 from '../../img/falcon-1.png';
+
 import './Features.css';
 
-const Features = () => (
+const rocketImg = {
+    'Falcon 1' : 'falcon-1',
+    'Falcon 9' : 'falcon-9',
+    'Falcon Heavy' : 'falcon-heavy',
+    'Starship' : 'starship'
+};
 
- <section className="features">
-    <h2 className="features-title">
-        Falcon 1 <br/>Overview
-    </h2>
-    <div className="overview">
+const Features = ({
+    name,
+    height, 
+    diameter, 
+    mass, 
+    payload_weights : payloadWeights, 
+    description
+    }) => {
 
-        <table className="table">
-            <caption className="table-title">
-                Size
-            </caption>
-            <thead>
-                <tr>
-                    <td className="table-column">HEIGHT</td>
-                    <td className="table-column">22.25 m / 73 ft</td>
-                </tr>
-                <tr>
-                    <td className="table-column">DIAMETER</td>
-                    <td className="table-column">1.68 m / 5.5 ft</td>
-                </tr>
-                <tr>
-                    <td className="table-column">MASS</td>
-                    <td className="table-column">30,146 kg / 66,460 lb</td>
-                </tr>
-                <tr>
-                    <td className="table-column">PAYLOAD TO LEO</td>
-                    <td className="table-column">450 kg / 992 lb</td>
-                </tr>
-            </thead>
-        </table>
-        <img
-                src={Falcon1}
-                alt="rocket"
-                className="rocket"
-                data-rellax-speed="14"
-        />
-        <article>
-            <h3 className="features-subtitle">DESCRIPTION</h3>
-            <p className="features-text">
-                The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.
-            </p>
-        </article>
-    </div>
-</section>
-);
+        return(
+            <section className="features">
+                <h2 className="features-title">
+                    {name} <br/>Overview
+                </h2>
+                <div className="overview">
+
+                    <table className="table">
+                        <caption className="table-title">
+                            Size
+                        </caption>
+                        <thead>
+                            
+                            <tr>
+                                <td className="table-column">Height</td>
+                                <td className="table-column">{height.meters} m / {height.feet} ft </td>
+                            </tr>
+                            <tr>
+                                <td className="table-column">Diameter</td>
+                                <td className="table-column">{diameter.meters} m / {diameter.feet} ft</td>
+                            </tr>
+                            <tr>
+                                <td className="table-column">Mass</td>
+                                <td className="table-column">{mass.kg} kg / {mass.lb} lb</td>
+                            </tr>
+
+                            {payloadWeights.map((item) => (
+                                <tr key={item.id}>
+                                    <td className="table-column">Payload to {item.id}</td>
+                                    <td className="table-column"> {item.kg} kg / {item.lb} lb</td>
+                                </tr>
+                            ))}
+                        </thead>
+                    </table>
+                    <RellaxWrapper speed = {11}>
+                        <img
+                                src={`img/${rocketImg[name]}.png`}
+                                alt="rocket"
+                                className="rocket"
+                        />
+                    </RellaxWrapper>
+
+                    <article>
+                        <h3 className="features-subtitle">DESCRIPTION</h3>
+                        <p className="features-text"> {description}</p>
+                    </article>
+                </div>
+            </section>
+        )
+};
 
 export default Features;

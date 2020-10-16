@@ -1,9 +1,10 @@
 import React from 'react';
 
-import logo from '../../img/logo.svg'
+import logo from '../../img-logo/logo.svg'
 import './Header.css';
 
-const Header = () => (
+const Header = (props) => (
+
     <header className="header">
         <img
             src={logo}
@@ -12,18 +13,18 @@ const Header = () => (
         />
         <nav className="main-nav nav">
         <ul className="list">
-            <li className="item">
-            <a href="/" className="item-link">Falcon 1</a>
-            </li>
-            <li className="item">
-            <a href="/" className="item-link">Falcon 9</a>
-            </li>
-            <li className="item">
-            <a href="/" className="item-link">Falcon Heavy</a>
-            </li>
-            <li className="item">
-            <a href="/" className="item-link">Updates</a>
-            </li>
+            {props.rockets.map((item, index) => (
+                <li key = {index} className="item">
+                    <a
+                        href="/"
+                        onClick={ eVent => {
+                            eVent.preventDefault();
+                            props.changeRocket(item);
+                        }}
+                        className="item-link"
+                    >{item}</a>
+                </li>
+            ))}
         </ul>
         </nav>
         <nav className="secondary-nav">
@@ -38,5 +39,6 @@ const Header = () => (
         </nav>
     </header>
 );
+
 
 export default Header;
